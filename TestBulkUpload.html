@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bulk Image Upload</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #preview img { max-width: 100px; margin: 5px; }
+    button { margin-top: 10px; padding: 5px 10px; }
+    button:disabled { opacity: 0.5; }
+  </style>
+</head>
+<body>
+  <h1>Upload Images</h1>
+  <input type="file" id="fileInput" multiple accept="image/*" />
+  <div id="preview"></div>
+  <button id="uploadBtn" disabled>Upload</button>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const preview = document.getElementById('preview');
+    const uploadBtn = document.getElementById('uploadBtn');
+    let selectedFiles = [];
+
+    fileInput.addEventListener('change', () => {
+      selectedFiles = Array.from(fileInput.files);
+      preview.innerHTML = '';
+      selectedFiles.forEach(file => {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        preview.appendChild(img);
+      });
+      uploadBtn.disabled = selectedFiles.length === 0;
+    });
+
+    
+  </script>
+</body>
+</html>
